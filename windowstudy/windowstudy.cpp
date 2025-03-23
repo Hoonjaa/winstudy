@@ -125,8 +125,16 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
-POINT objPos{ 500,300 };
-POINT objScale{ 100,100 };
+struct tObjInfo {
+    POINT objPos;
+    POINT objScale;
+};
+
+vector<tObjInfo> vecInfo;
+
+POINT ptLT;
+POINT ptRB;
+bool act = false;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {

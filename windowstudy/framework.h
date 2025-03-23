@@ -13,3 +13,6 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+
+#include <vector>//3학년 stl에 수강 예정
+using std::vector;
