@@ -125,6 +125,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+POINT objPos{ 500,300 };
+POINT objScale{ 100,100 };
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -146,13 +149,55 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
-    case WM_PAINT:
+    case WM_PAINT: //무효화 영역이 발생해야 한다 : 다시 그려야 하는 영역이 발생할 경우 -> 출력은 무조건 여기서 처리
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+
+            HPEN hRedPen = CreatePen(BS_SOLID/*선종류*/, 1/*굵기*/, RGB(255, 0, 0)/*색*/);
+            HBRUSH hBlackBrush = (HBRUSH)GetStockObject(BLACK_BRUSH);
+
+            HPEN hDefPen = (HPEN)SelectObject(hdc, hRedPen);
+            HBRUSH hDefBrush = (HBRUSH)SelectObject(hdc, hBlackBrush);
+
+            Rectangle(hdc, objPos.x-objScale.x/2,
+                objPos.y-objScale.y/2,
+                objPos.x+objScale.x/2,
+                objPos.y+objScale.y/2);
+
+            SelectObject(hdc, hDefPen);
+            SelectObject(hdc, hDefBrush);
+            DeleteObject(hRedPen);
+            DeleteObject(hDefBrush);
+
             EndPaint(hWnd, &ps);
         }
+        break;
+
+    case WM_KEYDOWN:
+    {
+        switch (wParam)
+        {
+        case VK_UP:
+            objPos.y -= 10;
+            InvalidateRect(hWnd, nullptr, true);
+            break;
+        case VK_DOWN:
+            objPos.y += 10;
+            InvalidateRect(hWnd, nullptr, true);
+            break;
+        case VK_LEFT:
+            objPos.x -= 10;
+            InvalidateRect(hWnd, nullptr, true);
+            break;
+        case VK_RIGHT:
+            objPos.x += 10;
+            InvalidateRect(hWnd, nullptr, true);
+            break;
+        case'W':/*문자면 이런식으로*/
+            break;
+        }
+    }
         break;
     case WM_DESTROY:
         PostQuitMessage(0);
