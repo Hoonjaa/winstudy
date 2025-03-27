@@ -136,6 +136,9 @@ POINT ptLT;
 POINT ptRB;
 bool act = false;
 
+POINT objPos{ 500,300 };
+POINT objScale{ 100,100 };
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
