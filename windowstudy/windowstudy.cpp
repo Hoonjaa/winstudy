@@ -45,16 +45,28 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 기본 메시지 루프입니다:
     //GetMessage : 메세지큐에서 메세지 확인 될때까지 대기
+    // = 메세지가 없으면 안굴러간다!
     //msg.message == WM_QUIT이 ㄹ경우 false 반환 -> 프로그램 종료
-    while (GetMessage(&msg, nullptr, 0, 0))
-    {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+
+    //PeekMessage : 메세지를 슬쩍 보겠다 = 메세지큐에서 메세지를 확인한 경우 ture, 없는 경우 false
+    //가장 큰 특징 메세지가 없더라도 계속 반환
+    while (true) {
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (WM_QUIT == msg.message)
+                break;
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)){
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
+
+            else {
+                //메세지가 없을 때 처리되는 부분
+                //Game Code, 디자인 패턴, 싱글톤 패턴
+                //게임 프레임워크!!
+            }
         }
     }
-
     return (int) msg.wParam;
 }
 
@@ -199,7 +211,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
         ptRB.x = LOWORD(lParam);
         ptRB.y = HIWORD(lParam);
-        InvalidateRect(hWnd, nullptr, true);
+        InvalidateRect(hWnd, nullptr, true);        //전체 영역을 초기화 다시 그리는 애 -> 더블 버퍼링으로 깜빡 해결
     }
         break;
     case WM_LBUTTONUP:
