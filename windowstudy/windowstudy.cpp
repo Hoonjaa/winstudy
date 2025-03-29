@@ -126,18 +126,15 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 struct tObjInfo {
-    POINT objPos;
-    POINT objScale;
+    POINT objPos;       //중심좌표
+    POINT objScale;     //중심좌표로부터의 크기
 };
 
-vector<tObjInfo> vecInfo;
+vector<tObjInfo> vecInfo;       //사각형의 정보를 저장하는 벡터
 
-POINT ptLT;
-POINT ptRB;
-bool act = false;
-
-POINT objPos{ 500,300 };
-POINT objScale{ 100,100 };
+POINT ptLT;         //마우스를 눌렀을 때의 좌표
+POINT ptRB;         //마우스를 뗐을 때의 좌표
+bool act = false;   // 사각형을 무작정 그리지 않기 위해 만든 bool변수
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -171,10 +168,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HPEN hDefPen = (HPEN)SelectObject(hdc, hRedPen);
             HBRUSH hDefBrush = (HBRUSH)SelectObject(hdc, hBlackBrush);
 
-            Rectangle(hdc, objPos.x-objScale.x/2,
-                objPos.y-objScale.y/2,
-                objPos.x+objScale.x/2,
-                objPos.y+objScale.y/2);
+            if (act) {
+                Rectangle(hdc, ptLT.x, ptLT.y, ptRB.x, ptRB.y);
+            }
+
+            for (size_t i = 0; i < vecInfo.size(); ++i) {
+                Rectangle(hdc,
+                    vecInfo[i].objPos.x - vecInfo[i].objScale.x / 2,
+                    vecInfo[i].objPos.y - vecInfo[i].objScale.y / 2, 
+                    vecInfo[i].objPos.x + vecInfo[i].objScale.x / 2, 
+                    vecInfo[i].objPos.y + vecInfo[i].objScale.y / 2);
+            }
 
             SelectObject(hdc, hDefPen);
             SelectObject(hdc, hDefBrush);
@@ -184,8 +188,36 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             EndPaint(hWnd, &ps);
         }
         break;
+    case WM_LBUTTONDOWN:
+    {
+        ptLT.x = LOWORD(lParam);
+        ptLT.y = HIWORD(lParam);
+        act = true;
+    }
+        break;
+    case WM_MOUSEMOVE:
+    {
+        ptRB.x = LOWORD(lParam);
+        ptRB.y = HIWORD(lParam);
+        InvalidateRect(hWnd, nullptr, true);
+    }
+        break;
+    case WM_LBUTTONUP:
+    {
+        tObjInfo info {};
 
-    case WM_KEYDOWN:
+        info.objPos.x = (ptLT.x + ptRB.x) / 2;
+        info.objPos.y = (ptLT.y + ptRB.y) / 2;
+
+        info.objScale.x = abs(ptLT.x - ptRB.x);     //abs:절댓값
+        info.objScale.y = abs(ptLT.y - ptRB.y);
+
+        vecInfo.push_back(info);        //vector에 저장
+        act = false;
+        InvalidateRect(hWnd, nullptr, true);
+    }
+        break;
+    /*case WM_KEYDOWN:
     {
         switch (wParam)
         {
@@ -205,11 +237,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             objPos.x += 10;
             InvalidateRect(hWnd, nullptr, true);
             break;
-        case'W':/*문자면 이런식으로*/
+        case'W':
             break;
         }
     }
-        break;
+        break;*/
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
