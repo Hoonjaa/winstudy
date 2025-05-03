@@ -3,12 +3,13 @@
 
 #include"TimeMgr.h"
 #include"Object.h"
+#include"KeyMgr.h"
 
 Object obj;
 
 Core::Core()
 	:handle(0)
-	, ptResoultion{}
+	,ptResoultion{}
 	,hDC(0)
 	,hBit(0)
 	,mDC(0)
@@ -35,6 +36,7 @@ int Core::Init(HWND _handle, POINT _ptResoultion)	//class ╟╢ц╪╟║ ╫цюшгр ╤╖ цй╠Бх
 
 	//Manager
 	TimeMgr::Instance()->Init();
+	KeyMgr::Instance()->Init();
 
 
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW,true);
@@ -77,6 +79,7 @@ int Core::Init(HWND _handle, POINT _ptResoultion)	//class ╟╢ц╪╟║ ╫цюшгр ╤╖ цй╠Бх
 void Core::Progress()
 {
 	TimeMgr::Instance()->Update();
+	KeyMgr::Instance()->Update();
 
 	Update();
 	Render();
@@ -87,10 +90,10 @@ void Core::Update()
 	Vec2 vPos = obj.getPos();
 
 	//╟Х╩Й (╧╟ц╪юг ╨╞╟Ф╣х абг╔, ╩Себ цъюШго╟М ╬В╣╔юлф╝)
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000) {
+	if (KeyMgr::Instance()->GetKeyState(KEY::LEFT) == KEY_STATE::AWAY) {
 		vPos.x -= 200.f * DT;
 	}
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000) {
+	if (KeyMgr::Instance()->GetKeyState(KEY::RIGHT) == KEY_STATE::AWAY) {
 		vPos.x += 200.f * fDT;
 	}
 
@@ -121,3 +124,17 @@ void Core::Render()
 }
 
 //╟║╩Сгт╪Ж (virtual) ╪Ва╕гь╤С
+//Key Manager
+//1. a©м b╧╟ц╪╟║ юл╣©го╢б ╟тюсюл╢ы. е╟ ╦е╢оюЗ╟║ ╬Ью╦╦И юз╫еюг е╟ ют╥бю╩ ╟Ё╨╟юШю╦╥н цЁ╦╝го╟т ╣х╢ы.
+//	╪Ж ╧И╧Ьюг ╩Сх╡аъ©║ a╧╟ц╪╢б гЖюГ га╥╧юс(╫ц╟ё)©║ юл╣©ю╩ цЁ╦╝гоаЖ╦╦, b╢б ╢ыю╫ га╥╧юс©║╪╜ юл╣©юл цЁ╦╝╣и ╪Ж юж╢ы.
+//2. ©Л╦╝╟║ а║га╦╕ го╢б ╟тюсюл╬ъ. а║гае╥. б╙╟т ╢╜╥╤ю╩ ╤╖╤Ш ╠Ф╟т ╢╜╥╤ю╩ ╤╖╤Ш Ё╞╤С╟║╢б фЬюл ╢ы╦╔ ╟тюсюл╢ы. юл╦╕ ╬Н╤╩╟т ╠╦гЖ?
+
+
+//©Л╦╝╟║ юш╬Вго╢б ╠╦а╤ : ╦е ╪Ь╟ё UPDATE х╝юнго╟М южю╫ -> ╬В╣╔юлф╝ Ё║Ё╣ю╩ ╤╖ ╨╞╟Фа║ю╩ ╧щ©╣гь╪╜ ╥╩╢У(Render)
+//©Л╦╝╢б гя га╥╧юс ╫ц╟ё(DT)юл аЖЁ╜ хдюг ╟А╟З╟╙ю╩ ╨╪ ╪Ж юж╢ы. ╣Ш╥н╣Ш╥н юл╣©го╢б ╟мю╩ ╨╪ ╪Ж ╬ЬаЖ.
+//╟╟ю╨ га╥╧юс Ё╩©║╪╜ A -> B ©РаВ©╢╢ы д║╦И, ╟╟юл ©РаВюл╢б ╟и╥н ╨╦юн╢ы.
+//гя га╥╧юс©║╪╜ юШ©К╣г╢б е╟╢б ╟╟ю╨ юл╨╔ф╝╥н цЁ╦╝╣г╬Н╬ъ гя╢ы (╠тд╒)
+
+//го╢бюо
+//1. га╥╧юс ╣©╠Бх╜ : еКюо га╥╧юс Ё╩©║╪╜ юо╬НЁ╜ юою╨ ╟╟ю╨ е╟©║ ╢Кгь ╣©юогя юл╨╔ф╝╥н цЁ╦╝гя╢ы.
+//2. е╟ ют╥бю╩ ©╘╥╞ юл╨╔ф╝╥н Ё╙╢╡ цЁ╦╝гр ╪Ж юж╢ы. : TAP, HOLD, AWAY, NONE

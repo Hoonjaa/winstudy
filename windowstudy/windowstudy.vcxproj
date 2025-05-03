@@ -146,6 +146,7 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="TimeMgr.cpp" />
     <ClCompile Include="windowstudy.cpp" />
