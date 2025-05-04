@@ -25,10 +25,6 @@ private:
 	HDC			mDC;
 	
 
-private :
-	void		Update();
-	void		Render();
-
 public:
 	int			Init(HWND _handle, POINT _ptResoultion);
 	void		Progress();

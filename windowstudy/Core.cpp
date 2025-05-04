@@ -4,6 +4,7 @@
 #include"TimeMgr.h"
 #include"Object.h"
 #include"KeyMgr.h"
+#include"SceneMgr.h"
 
 Object obj;
 
@@ -37,6 +38,7 @@ int Core::Init(HWND _handle, POINT _ptResoultion)	//class ╟╢ц╪╟║ ╫цюшгр ╤╖ цй╠Бх
 	//Manager
 	TimeMgr::Instance()->Init();
 	KeyMgr::Instance()->Init();
+	SceneMgr::Instance()->Init();
 
 
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW,true);
@@ -80,48 +82,16 @@ void Core::Progress()
 {
 	TimeMgr::Instance()->Update();
 	KeyMgr::Instance()->Update();
+	SceneMgr::Instance()->Update();
 
-	Update();
-	Render();
-}
+	Rectangle(mDC, -1, -1, ptResoultion.x + 1, ptResoultion.y + 1);
 
-void Core::Update()
-{
-	Vec2 vPos = obj.getPos();
+	SceneMgr::Instance()->Render(mDC);
 
-	//╟Х╩Й (╧╟ц╪юг ╨╞╟Ф╣х абг╔, ╩Себ цъюШго╟М ╬В╣╔юлф╝)
-	if (KeyMgr::Instance()->GetKeyState(KEY::LEFT) == KEY_STATE::AWAY) {
-		vPos.x -= 200.f * DT;
-	}
-	if (KeyMgr::Instance()->GetKeyState(KEY::RIGHT) == KEY_STATE::AWAY) {
-		vPos.x += 200.f * fDT;
-	}
-
-	obj.setPos(vPos);
-}
-
-void Core::Render()
-{
-	Rectangle(hDC, -1, -1, ptResoultion.x + 1, ptResoultion.y + 1);
-
-	Vec2 vPos = obj.getPos();
-	Vec2 vScale = obj.getScale();
-	//╠в╦╝╠Б
-	Rectangle(hDC,
-		int(vPos.x - vScale.x / 2.f),
-		int(vPos.y - vScale.y / 2.f),
-		int(vPos.x + vScale.x / 2.f),
-		int(vPos.y + vScale.y / 2.f));
-
-	//©о╪╨╣х ╠в╦╡ю╩ ╨╧╩Гго╢б дз╣Е
 	BitBlt(hDC, 0, 0, ptResoultion.x, ptResoultion.y,	//╦ЯюШаЖ, ╨╧╩Г ╧чю╩ ╨ню╖
 		mDC, 0, 0, SRCCOPY); // ╨╧╩Г ╢К╩С
-
-	// гоЁ╙гоЁ╙ гх╪© юл╣© -> CPU ╨нго
-	// => ╢ы╥╨X --- GPU
-
-	//winAPI : ╢ю╥а, гя гх╪© ╢эю╖ ╨╧╩Гго╢б юою╩ а╕©эго╟М ©╘╠Б╪╜ ╢У ╪╨╢и юЗго? ╬ф╢оющ╬ф. ╠в╥║╪╜ юо╢э юл╟и╥н ╦╦а╥
 }
+
 
 //╟║╩Сгт╪Ж (virtual) ╪Ва╕гь╤С
 //Key Manager

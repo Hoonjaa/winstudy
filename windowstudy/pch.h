@@ -6,6 +6,10 @@
 #include <vector>//3학년 stl에 수강 예정
 using std::vector;
 
+#include<string>
+using std::string;	//char
+using std::wstring;	//wchar
+
 #include "define.h"
 #include "struct.h"
 
