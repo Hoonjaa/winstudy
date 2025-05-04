@@ -6,11 +6,10 @@
 #include"KeyMgr.h"
 #include"SceneMgr.h"
 
-Object obj;
 
 Core::Core()
 	:handle(0)
-	,ptResoultion{}
+	,ptResolution{}
 	,hDC(0)
 	,hBit(0)
 	,mDC(0)
@@ -30,9 +29,9 @@ Core::~Core()
 int Core::Init(HWND _handle, POINT _ptResoultion)	//class °´Ã¼°¡ ½ÃÀÛÇÒ ¶§ ÃÊ±âÈ­ÇØ¾ß ÇÏ´Â ºÎºĞ
 {
 	handle = _handle;
-	ptResoultion = _ptResoultion;
+	ptResolution = _ptResoultion;
 
-	RECT rt = { 0,0,ptResoultion.x,ptResoultion.y };
+	RECT rt = { 0,0,ptResolution.x,ptResolution.y };
 		//ÇØ»óµµ : 0, 0, 0000 , 0000
 
 	//Manager
@@ -61,7 +60,7 @@ int Core::Init(HWND _handle, POINT _ptResoultion)	//class °´Ã¼°¡ ½ÃÀÛÇÒ ¶§ ÃÊ±âÈ
 	hDC = GetDC(handle);
 
 	//ÀÌÁß ¹öÆÛ¸µ ¿ëµµÀÇ ºñÆ®¸Ê°ú DC¸¦ ¸¸µé¾î¾ß ÇÔ.
-	hBit = CreateCompatibleBitmap(hDC, ptResoultion.x, ptResoultion.y);	//°°Àº ÇØ»óµµ Å©±âÀÇ ºñÆ®¸ÊÀ» ÇÏ³ª ¸¸µç°ÅÀÓ
+	hBit = CreateCompatibleBitmap(hDC, ptResolution.x, ptResolution.y);	//°°Àº ÇØ»óµµ Å©±âÀÇ ºñÆ®¸ÊÀ» ÇÏ³ª ¸¸µç°ÅÀÓ
 
 	//ÀÌ ÇÚµé ¾ÆÀÌµğ¸¦ ¹Ş¾Æ¼­ ÀÌ ºñÆ®¸ÊÀ» »ó´ë·Î ÇÏ´Â DC¸¦ ¸¸µç´Ù
 	mDC = CreateCompatibleDC(hDC);
@@ -71,9 +70,6 @@ int Core::Init(HWND _handle, POINT _ptResoultion)	//class °´Ã¼°¡ ½ÃÀÛÇÒ ¶§ ÃÊ±âÈ
 	HBITMAP hOldBit = (HBITMAP)SelectObject(mDC, hBit);
 	DeleteObject(hOldBit);
 
-	
-	obj.setPos(Vec2((float)(ptResoultion.x / 2), (float)(ptResoultion.y / 2)));
-	obj.setScale(Vec2(100, 100));
 
 	return S_OK;	//HRESULT ³ªÁß¿¡ ÇÔ Ã£¾Æº¸»ï ÀÛ¾÷ÀÌ ¼º°øÇß´Ü ÀÇ¹Ì
 }
@@ -84,11 +80,11 @@ void Core::Progress()
 	KeyMgr::Instance()->Update();
 	SceneMgr::Instance()->Update();
 
-	Rectangle(mDC, -1, -1, ptResoultion.x + 1, ptResoultion.y + 1);
+	Rectangle(mDC, -1, -1, ptResolution.x + 1, ptResolution.y + 1);
 
 	SceneMgr::Instance()->Render(mDC);
 
-	BitBlt(hDC, 0, 0, ptResoultion.x, ptResoultion.y,	//¸ñÀûÁö, º¹»ç ¹ŞÀ» ºÎÀ§
+	BitBlt(hDC, 0, 0, ptResolution.x, ptResolution.y,	//¸ñÀûÁö, º¹»ç ¹ŞÀ» ºÎÀ§
 		mDC, 0, 0, SRCCOPY); // º¹»ç ´ë»ó
 }
 

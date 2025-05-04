@@ -55,6 +55,12 @@
     <Filter Include="Engine\05.Scene\01. StartScene">
       <UniqueIdentifier>{023b2f78-afda-4a84-bf07-2f4807e3f8af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04.Object\Player">
+      <UniqueIdentifier>{aa08d8b2-b5cb-4e54-b8a7-afdd6b1cd11a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04.Object\Monster">
+      <UniqueIdentifier>{497560e1-ec2b-4ddc-a142-ed0a0d1ce77f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -99,6 +105,12 @@
     <ClInclude Include="Scene_Start.h">
       <Filter>Engine\05.Scene\01. StartScene</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Engine\04.Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Engine\04.Object\Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowstudy.cpp">
@@ -124,6 +136,12 @@
     </ClCompile>
     <ClCompile Include="Scene_Start.cpp">
       <Filter>Engine\05.Scene\01. StartScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Engine\04.Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Engine\04.Object\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

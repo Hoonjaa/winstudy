@@ -18,7 +18,7 @@ class Core {
 	SINGLE(Core);
 private:
 	HWND		handle;			//클래스 내부에서 창 핸들 변수
-	POINT		ptResoultion;	//해상도를 받을 변수
+	POINT		ptResolution;	//해상도를 받을 변수
 	HDC			hDC;			//그리기 위한 변수
 
 	HBITMAP		hBit;
@@ -30,6 +30,7 @@ public:
 	void		Progress();
 
 	HWND		getMainHandle() {return handle;}
+	POINT		GetResolution() { return ptResolution; }
 };
 
 //객체생성을 하나로 제한하고자 함

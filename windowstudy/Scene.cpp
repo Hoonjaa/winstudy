@@ -10,7 +10,7 @@ Scene::Scene()
 Scene::~Scene()
 {
 	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i) {
-		for (size_t j = 0; j < arrObj[i].size(); ++i) {
+		for (size_t j = 0; j < arrObj[i].size(); ++j) {
 			delete arrObj[i][j];
 		}
 	}
@@ -19,7 +19,7 @@ Scene::~Scene()
 void Scene::Update()
 {
 	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i) {
-		for (size_t j = 0; j < arrObj[i].size(); ++i) {
+		for (size_t j = 0; j < arrObj[i].size(); ++j) {
 			arrObj[i][j]->Update();
 		}
 	}
@@ -28,7 +28,7 @@ void Scene::Update()
 void Scene::Render(HDC _hdc)
 {
 	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; ++i) {
-		for (size_t j = 0; j < arrObj[i].size(); ++i) {
+		for (size_t j = 0; j < arrObj[i].size(); ++j) {
 			arrObj[i][j]->Render(_hdc);
 		}
 	}

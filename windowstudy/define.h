@@ -12,8 +12,8 @@
 		type();\
 		~type();
 
-#define fDT TimeMgr::Instance()->getfDT();
-#define DT TimeMgr::Instance()->getDT();
+#define fDT TimeMgr::Instance()->getfDT()
+#define DT TimeMgr::Instance()->getDT()
 
 enum class GROUP_TYPE {
 	DEFAULT,

@@ -6,7 +6,7 @@ private:
 
 public:
 	Object();
-	~Object();
+	virtual ~Object();
 
 	// interfaceÇÔ¼ö
 	//-> set, get
@@ -17,6 +17,6 @@ public:
 	Vec2 getScale() { return vScale; }
 
 public:
-	void Update();
-	void Render(HDC _hdc);
+	virtual void Update()=0;
+	virtual void Render(HDC _hdc);
 };

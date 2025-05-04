@@ -16,18 +16,7 @@ Object::~Object()
 
 void Object::Update()
 {
-	if (KeyMgr::Instance()->GetKeyState(KEY::W) == KEY_STATE::HOLD) {
-		vPos.y -= 200.f * DT;
-	}
-	if (KeyMgr::Instance()->GetKeyState(KEY::S) == KEY_STATE::HOLD) {
-		vPos.y += 200.f * DT;
-	}
-	if (KeyMgr::Instance()->GetKeyState(KEY::A) == KEY_STATE::HOLD) {
-		vPos.x -= 200.f * DT;
-	}
-	if (KeyMgr::Instance()->GetKeyState(KEY::D) == KEY_STATE::HOLD) {
-		vPos.x += 200.f * DT;
-	}
+	
 }
 
 void Object::Render(HDC _hdc)
