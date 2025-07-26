@@ -17,6 +17,6 @@ public:
 	Vec2 getScale() { return vScale; }
 
 public:
-	virtual void Update()=0;
+	virtual void Update()=0;		//자식 클래스에서 재정의 = 0
 	virtual void Render(HDC _hdc);
 };

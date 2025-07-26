@@ -20,7 +20,7 @@ public:
 	virtual void Enter()=0;
 	virtual void Exit()=0;
 
-protected:
+public:
 	void AddObject(Object* obj, GROUP_TYPE type)
 	{
 		arrObj[(UINT)type].push_back(obj);

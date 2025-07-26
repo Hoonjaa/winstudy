@@ -61,6 +61,9 @@
     <Filter Include="Engine\04.Object\Monster">
       <UniqueIdentifier>{497560e1-ec2b-4ddc-a142-ed0a0d1ce77f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04.Object\Missile">
+      <UniqueIdentifier>{cc8ca4fb-46e3-40d8-83ec-a2f63c3ab9d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -111,6 +114,9 @@
     <ClInclude Include="Monster.h">
       <Filter>Engine\04.Object\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>Engine\04.Object\Missile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowstudy.cpp">
@@ -142,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>Engine\04.Object\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>Engine\04.Object\Missile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

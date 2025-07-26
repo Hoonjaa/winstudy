@@ -5,6 +5,8 @@
 #include "Object.h"
 #include "Player.h"
 #include "Monster.h"
+#include "KeyMgr.h"
+#include "Missile.h"
 
 Scene_Start::Scene_Start()
 {
@@ -39,6 +41,9 @@ void Scene_Start::Enter()
 		monObj->setScale(Vec2(objScale, objScale));
 		AddObject(monObj, GROUP_TYPE::DEFAULT);
 	}
+
+	//Missile
+	
 }
 
 void Scene_Start::Exit()

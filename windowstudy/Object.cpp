@@ -21,6 +21,7 @@ void Object::Update()
 
 void Object::Render(HDC _hdc)
 {
+	
 	Rectangle(_hdc,
 		(int)(vPos.x - vScale.x / 2.f),
 		(int)(vPos.y - vScale.y / 2.f),

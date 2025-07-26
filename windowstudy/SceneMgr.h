@@ -13,5 +13,7 @@ public:
 	void Init();
 	void Update();
 	void Render(HDC _hdc);
+
+	Scene* GetCurScene() { return currScene; }
 };
 
