@@ -5,6 +5,24 @@ struct Vec2 {
 	float y;
 
 public:
+	float Length()
+	{
+		return sqrt(x * x + y * y);
+	}
+
+	Vec2& Normalize()
+	{
+		float len = Length();
+
+		// 에러 검출용 분모가 0이 안되도록 (디버깅 창에서 뜸 오류가)
+		assert(len != 0.f);
+
+		x /= len;
+		y /= len;
+
+		return *this;
+	}
+
 	Vec2& operator = (POINT _pt)
 	{
 		x = (float)_pt.x;

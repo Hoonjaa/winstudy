@@ -31,6 +31,7 @@ public:
 
 	HWND		getMainHandle() {return handle;}
 	POINT		GetResolution() { return ptResolution; }
+	HDC			GetMainDC() { return hDC; }
 };
 
 //객체생성을 하나로 제한하고자 함

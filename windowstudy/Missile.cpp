@@ -4,8 +4,10 @@
 #include "KeyMgr.h"
 
 Missile::Missile()
-	:dir(1.f)
+	:theta(PI/4.f)
+	,dir(Vec2(1.f,1.f))
 {
+	dir.Normalize();
 }
 
 Missile::~Missile()
@@ -14,9 +16,15 @@ Missile::~Missile()
 
 void Missile::Update()
 {
-	Vec2 currPos = getPos();
-	currPos.y += fDT * 600.f * dir;
-	setPos(currPos);
+	Vec2 vPos = getPos();
+	
+	//vPos.x += 600.f * cosf(theta) * fDT;	»ï°¢ÇÔ¼ö
+	//vPos.y -= 600.f * sinf(theta) * fDT;	»ï°¢ÇÔ¼ö
+
+	vPos.x += 600.f * dir.x * fDT;
+	vPos.y += 600.f * dir.y * fDT;
+
+	setPos(vPos);
 }
 
 void Missile::Render(HDC _hdc)

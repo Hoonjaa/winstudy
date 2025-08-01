@@ -5,7 +5,7 @@
 #include"Object.h"
 #include"KeyMgr.h"
 #include"SceneMgr.h"
-
+#include"PathMgr.h"
 
 Core::Core()
 	:handle(0)
@@ -33,12 +33,6 @@ int Core::Init(HWND _handle, POINT _ptResoultion)	//class °´Ã¼°¡ ½ÃÀÛÇÒ ¶§ ÃÊ±âÈ
 
 	RECT rt = { 0,0,ptResolution.x,ptResolution.y };
 		//ÇØ»óµµ : 0, 0, 0000 , 0000
-
-	//Manager
-	TimeMgr::Instance()->Init();
-	KeyMgr::Instance()->Init();
-	SceneMgr::Instance()->Init();
-
 
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW,true);
 	//½ÇÁ¦·Î ±×¸± ¼ö ÀÖ´Â ¿µ¿ªÀ» °è»êÇÑ´Ù.
@@ -70,7 +64,12 @@ int Core::Init(HWND _handle, POINT _ptResoultion)	//class °´Ã¼°¡ ½ÃÀÛÇÒ ¶§ ÃÊ±âÈ
 	HBITMAP hOldBit = (HBITMAP)SelectObject(mDC, hBit);
 	DeleteObject(hOldBit);
 
-
+	//Manager
+	PathMgr::Instance()->Init();
+	TimeMgr::Instance()->Init();
+	KeyMgr::Instance()->Init();
+	SceneMgr::Instance()->Init();
+	
 	return S_OK;	//HRESULT ³ªÁß¿¡ ÇÔ Ã£¾Æº¸»ï ÀÛ¾÷ÀÌ ¼º°øÇß´Ü ÀÇ¹Ì
 }
 
@@ -79,6 +78,7 @@ void Core::Progress()
 	TimeMgr::Instance()->Update();
 	KeyMgr::Instance()->Update();
 	SceneMgr::Instance()->Update();
+	
 
 	Rectangle(mDC, -1, -1, ptResolution.x + 1, ptResolution.y + 1);
 
@@ -86,6 +86,8 @@ void Core::Progress()
 
 	BitBlt(hDC, 0, 0, ptResolution.x, ptResolution.y,	//¸ñÀûÁö, º¹»ç ¹ŞÀ» ºÎÀ§
 		mDC, 0, 0, SRCCOPY); // º¹»ç ´ë»ó
+
+	TimeMgr::Instance()->Render();
 }
 
 

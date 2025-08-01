@@ -21,6 +21,8 @@
 #define KEY_TAP(key) KEY_CHECK(key, KEY_STATE::TAP)
 #define KEY_NONE(key) KEY_CHECK(key, KEY_STATE::NONE)
 
+#define PI 3.1415926535f
+
 enum class GROUP_TYPE {
 	DEFAULT,
 	PLAYER,

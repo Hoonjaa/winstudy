@@ -6,9 +6,18 @@
 #include <vector>//3학년 stl에 수강 예정
 using std::vector;
 
+#include<map>
+using std::map;
+using std::make_pair;
+
 #include<string>
 using std::string;	//char
 using std::wstring;	//wchar
+
+#include <math.h>
+#include <assert.h>
+
+#pragma comment(lib, "Msimg32.lib")
 
 #include "define.h"
 #include "struct.h"
